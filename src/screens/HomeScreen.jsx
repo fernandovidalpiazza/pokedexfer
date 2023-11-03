@@ -1,15 +1,24 @@
 import React from "react";
-import { Image, Text, View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
+import {
+  Image,
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import { usePokemonPaginate } from "../hooks/usePokemonPaginate";
 import PokemonCard from "../common/PokemonCard";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   const { pokemonList, loadPokemons } = usePokemonPaginate();
+  const { top } = useSafeAreaInsets();
 
   return (
     <>
       <Image
-        source={require('../assets/pokebola.png')}
+        source={require("../assets/pokebola.png")}
         style={styles.bgPokeball}
       />
       {pokemonList.length > 0 && (
@@ -19,7 +28,18 @@ export default function HomeScreen() {
             numColumns={2}
             keyExtractor={(pokemon) => String(pokemon.id)}
             renderItem={({ item }) => <PokemonCard pokemon={item} />}
-            ListHeaderComponent={<Text style={styles.title}>Pokedex</Text>}
+            ListHeaderComponent={
+              <Text
+                style={{
+                  ...styles.title,
+                  top: top + 5,
+                  marginBottom: 40, // Cambiado "marginbottom" a "marginBottom"
+                  paddingBottom: 10,
+                }}
+              >
+                Pokedex
+              </Text>
+            }
             showsVerticalScrollIndicator={false}
             ListFooterComponent={
               <ActivityIndicator style={{ height: 200 }} size={50} />

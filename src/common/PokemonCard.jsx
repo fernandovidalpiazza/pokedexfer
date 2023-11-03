@@ -1,10 +1,15 @@
+import { useNavigation } from "@react-navigation/native";
 import { setStatusBarBackgroundColor } from "expo-status-bar";
 import React from "react";
 import { Text, View, TouchableOpacity,Image, StyleSheet } from "react-native";
 
 export default function PokemonCard({ pokemon }) {
+
+const navigation = useNavigation ()
+
+
   return (
-    <TouchableOpacity onPress={() => console.log("Seleccione un Pokemon")}>
+    <TouchableOpacity onPress={() => navigation.navigate("PokemonScreen", {pokemonSelected:pokemon})}>
      <View style={{ ...styles.cardContainer, backgroundColor: pokemon.color }}>
 
         <Text style = {styles.name}>
